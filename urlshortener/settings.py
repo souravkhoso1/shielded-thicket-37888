@@ -49,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'urlshortener.urls'
@@ -121,18 +120,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 #STATICFILES_DIRS = (os.path.join(BASE_DIR),'static')
-PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-STATIC_URL = '/static/'
+#PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+#STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+#STATIC_URL = '/static/'
 
 # Extra lookup directories for collectstatic to find static files
-STATICFILES_DIRS = (
-    BASE_DIR / "static",
-    #os.path.join(PROJECT_ROOT, 'static'),
-)
+#STATICFILES_DIRS = (
+#    BASE_DIR / "static",
+#    #os.path.join(PROJECT_ROOT, 'static'),
+#)
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -145,3 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ## Django can't redirect to the slash URL while maintaining POST data. 
 ## Change your form to point to localhost:8000/shorten/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
 APPEND_SLASH = False
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
