@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import ShortenedUrl
-from urlshortener.settings import BASE_URL
 from django.http import HttpResponse
 import string
 import random
@@ -9,7 +8,7 @@ import random
 def home(request):
     shortenedUrls = ShortenedUrl.objects.all()
 
-    return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'BASE_URL': BASE_URL})
+    return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls})
 
 
 def shorten(request):
@@ -27,7 +26,7 @@ def shorten(request):
 
         shortenedUrls = ShortenedUrl.objects.all()
 
-        return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'BASE_URL': BASE_URL, 'shortString': random_string})
+        return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'shortString': random_string})
     
     else:
         return redirect("/")
@@ -40,4 +39,4 @@ def resolve(request, short_string):
         return redirect(actual_url)
     else :
         shortenedUrls = ShortenedUrl.objects.all()
-        return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'BASE_URL': BASE_URL, 'shortStringError': short_string})
+        return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'shortStringError': short_string})
