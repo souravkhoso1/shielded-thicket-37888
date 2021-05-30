@@ -17,7 +17,7 @@ def shorten(request):
     if 'actual-url' in request.POST:
         while True :
             random_string = ''.join((random.choice(string.ascii_letters+string.digits) for x in range(7)))
-            if ShortenedUrl.objects.filter(shortened_string=random_string).exists():
+            if not ShortenedUrl.objects.filter(shortened_string=random_string).exists():
                 break
     
         actual_url = request.POST['actual-url']
@@ -31,10 +31,6 @@ def shorten(request):
     
     else:
         return redirect("/")
-    
-
-
-    #return HttpResponse("Data Inserted, shortened_string: " + random_string)
 
 def resolve(request, short_string):
     
@@ -45,6 +41,3 @@ def resolve(request, short_string):
     else :
         shortenedUrls = ShortenedUrl.objects.all()
         return render(request, 'search.html', {'title': 'URL Shortener', 'headline': 'Shorten Your URL!!', 'shortenedUrls': shortenedUrls, 'BASE_URL': BASE_URL, 'shortStringError': short_string})
-
-
-    #return HttpResponse(short_string)
